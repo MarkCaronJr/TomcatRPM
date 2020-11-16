@@ -10,7 +10,8 @@ RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
 
 
 COPY *.tar.gz /root/rpmbuild/SOURCES/
+COPY *.patch /root/rpmbuild/SOURCES/
 ADD tomcat.spec /root/rpmbuild/SPECS/
 VOLUME /root/rpmbuild/RPMS/noarch
 WORKDIR /root/rpmbuild/RPMS/noarch
-CMD ["rpmbuild","--target","noarch","-bb","tomcat.spec"]
+CMD ["rpmbuild","--target","noarch","-v","-bb","tomcat.spec"]
