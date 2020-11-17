@@ -12,6 +12,8 @@ Group: web
 License: Apache 2.0
 Source0: apache-tomcat-%{full_version}.tar.gz
 Patch0: manager-stig.patch
+Patch1: serverxml-stig.patch
+Patch2: webxml-stig.patch
 
 BuildArch: noarch
 Requires: java >= 1.8.0
@@ -30,6 +32,8 @@ useradd -M -r -p NP -g webservd -d /usr/local/tomcat/default \
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 %build
 %install
 find . -name "*.bat" -exec rm {} \;

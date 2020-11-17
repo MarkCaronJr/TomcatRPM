@@ -1,0 +1,41 @@
+--- apache-tomcat-9.0.39/conf/web.xml	2020-10-06 07:17:24.000000000 -0700
++++ apache-tomcat-9.0.39/conf/web-stig.xml	2020-11-17 07:22:04.073374126 -0800
+@@ -121,6 +121,10 @@
+             <param-name>listings</param-name>
+             <param-value>false</param-value>
+         </init-param>
++        <init-param>
++            <param-name>readonly</param-name>
++            <param-value>true</param-value>
++        </init-param>
+         <load-on-startup>1</load-on-startup>
+     </servlet>
+ 
+@@ -496,13 +500,12 @@
+   <!--   blockContentTypeSniffingEnabled                                    -->
+   <!--                       Should the header that blocks content type     -->
+   <!--                       sniffing be added to every response? [true]    -->
+-<!--
++
+     <filter>
+         <filter-name>httpHeaderSecurity</filter-name>
+         <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+         <async-supported>true</async-supported>
+     </filter>
+--->
+ 
+   <!-- A filter that sets character encoding that is used to decode -->
+   <!-- parameters in a POST request -->
+@@ -631,7 +634,11 @@
+   <!-- created sessions by modifying the value below.                       -->
+ 
+     <session-config>
+-        <session-timeout>30</session-timeout>
++        <session-timeout>10</session-timeout>
++        <cookie-config>
++            <http-only>true</http-only>
++            <secure>true</secure>
++        </cookie-config>
+     </session-config>
+ 
+ 
