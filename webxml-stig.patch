@@ -1,5 +1,5 @@
---- apache-tomcat-9.0.39/conf/web.xml	2020-10-06 07:17:24.000000000 -0700
-+++ apache-tomcat-9.0.39/conf/web-stig.xml	2020-11-17 07:22:04.073374126 -0800
+--- apache-tomcat/conf/web.xml	2020-10-06 07:17:24.000000000 -0700
++++ apache-tomcat/conf/web-stig.xml	2020-11-17 07:22:04.073374126 -0800
 @@ -121,6 +121,10 @@
              <param-name>listings</param-name>
              <param-value>false</param-value>

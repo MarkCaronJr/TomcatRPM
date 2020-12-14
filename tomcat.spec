@@ -1,11 +1,11 @@
 %define major_version 9
 %define minor_version 0
-%define patch_version 39
+%define patch_version 41
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
-Version: %{full_version}
-Release: 1%{?dist}
+Version: %{major_version}.%{minor_version}
+Release: %{patch_version}%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -15,10 +15,12 @@ Patch0: manager-stig.patch
 Patch1: serverxml-stig.patch
 Patch2: webxml-stig.patch
 
+
 BuildArch: noarch
 Requires: java >= 1.8.0
 Requires(pre): shadow-utils
-Provides: tomcat-9
+Provides: tomcat-9 = %{version}
+Obsoletes: tomcat-9 < %{version}
 
 %define catalina_home /opt/%{name}-%{major_version}
 %define catalina_base /usr/local/tomcat/default
@@ -30,7 +32,8 @@ getent passwd tomcat  || \
 useradd -M -r -p NP -g webservd -d /usr/local/tomcat/default \
     -c "tomcat service account" tomcat
 %prep
-%setup -q
+%setup -q -c -n apache-tomcat 
+mv apache-tomcat-*/* .
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -55,6 +58,7 @@ cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 %attr(0755,root,root) /%{catalina_home}/bin/*
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
+%config(noreplace) /%{catalina_base}/conf/*
 #%attr(0750,tomcat,webservd) /%{catalina_base}/conf
 #%attr(-,tomcat,webservd) /%{catalina_base}/conf/*
 #%attr(0750,tomcat,webservd) /%{catalina_base}/lib
