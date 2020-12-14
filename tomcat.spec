@@ -4,8 +4,8 @@
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
-Version: %{major_version}.%{minor_version}
-Release: %{patch_version}%{?dist}
+Version: %{full_version}
+Release: 2%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -21,16 +21,25 @@ Requires: java >= 1.8.0
 Requires(pre): shadow-utils
 Provides: tomcat-9 = %{version}
 Obsoletes: tomcat-9 < %{version}
+Conflicts: tomcat-9 < %{version}
 
 %define catalina_home /opt/%{name}-%{major_version}
 %define catalina_base /usr/local/tomcat/default
+
+%define tomcat_user tomcat
+%define tomcat_group tomcat
+
 %description
 
+%clean
+
 %pre
-getent group webservd  || groupadd -r webservd
-getent passwd tomcat  || \
-useradd -M -r -p NP -g webservd -d /usr/local/tomcat/default \
-    -c "tomcat service account" tomcat
+getent group %tomcat_group  || groupadd -r %tomcat_group
+getent passwd %tomcat_user  || \
+useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
+    -c "tomcat service account" %tomcat_user
+%preun
+rm -rf /opt/apache-tomcat-%{major_version}
 %prep
 %setup -q -c -n apache-tomcat 
 mv apache-tomcat-*/* .
@@ -52,21 +61,21 @@ cp -r work %{buildroot}/%{catalina_base}
 cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
 cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 %files
-%defattr(0640,tomcat,webservd,0750)
+%defattr(0640,tomcat,%tomcat_group,0750)
 /%{catalina_home}/*
 /%{catalina_base}/*
 %attr(0755,root,root) /%{catalina_home}/bin/*
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
-#%attr(0750,tomcat,webservd) /%{catalina_base}/conf
-#%attr(-,tomcat,webservd) /%{catalina_base}/conf/*
-#%attr(0750,tomcat,webservd) /%{catalina_base}/lib
-#%attr(0750,tomcat,webservd) /%{catalina_base}/bin
-#%attr(-,tomcat,webservd) /%{catalina_base}/bin/*
-#%attr(-750,tomcat,webservd) /%{catalina_base}/temp
-#%attr(0750,tomcat,webservd) /%{catalina_base}/work
-#%attr(0640,tomcat,webservd,0750) /%{catalina_base}/webapps
+#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/conf
+#%attr(-,tomcat,%tomcat_group) /%{catalina_base}/conf/*
+#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/lib
+#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/bin
+#%attr(-,tomcat,%tomcat_group) /%{catalina_base}/bin/*
+#%attr(-750,tomcat,%tomcat_group) /%{catalina_base}/temp
+#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/work
+#%attr(0640,tomcat,%tomcat_group,0750) /%{catalina_base}/webapps
 
 
 

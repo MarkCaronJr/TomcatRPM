@@ -14,4 +14,4 @@ rpm: download
 	docker run -v `pwd`:/root/rpmbuild/RPMS/noarch rpmbuild 
 
 test:
-	docker run -it -v `pwd`:/rpms centos:7
+	docker run -it -v `pwd`:/rpms nimmis/java-centos:openjdk-8-jdk
