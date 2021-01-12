@@ -27,7 +27,7 @@ jobs:
         id: upload-RPM
         uses: actions/upload-release-assent@v1
         env:
-          GITHUB_TOKEN: ${{ secretes.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./apache-tomcat-*rpm
