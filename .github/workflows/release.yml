@@ -15,6 +15,8 @@ jobs:
       - name: get version
         id: get_version
         run: .github/workflows/get_version.sh
+      - name: show version
+        run: echo ${{steps.get_version.outputs.VERSION}}
       - name: tag repo
         uses: actions/github-script@v3
         with:
@@ -23,7 +25,7 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${steps.get_version.VERSION}",
+              ref: "refs/tags/${{steps.get_version.outputs.VERSION}}",
               sha: context.sha
             })
       - name: Create Release
@@ -32,8 +34,8 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_version.VERSION}}
-          release_name: Release ${{ steps.get_verison.VERSION }}
+          tag_name: ${{steps.get_version.VERSION}}
+          release_name: Release ${{ steps.get_verison.outputs.VERSION }}
       - name: Upload RPM
         id: upload-RPM
         uses: actions/upload-release-asset@v1
