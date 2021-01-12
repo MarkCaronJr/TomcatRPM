@@ -15,6 +15,17 @@ jobs:
       - name: get version
         id: get_version
         run: .github/workflows/get_version.sh
+      - name: tag repo
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              refs: "refs/tags/${{steps.get_version.VERSION}}",
+              sha: context.sha
+            })
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
