@@ -1,4 +1,4 @@
-name: Build RPM
+name: Create Release
 on:   
   push:
     branches: 
