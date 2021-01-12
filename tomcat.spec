@@ -41,8 +41,7 @@ useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
 %preun
 rm -rf /opt/apache-tomcat-%{major_version}
 %prep
-%setup -q -c -n apache-tomcat 
-mv apache-tomcat-*/* .
+%setup -q 
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
