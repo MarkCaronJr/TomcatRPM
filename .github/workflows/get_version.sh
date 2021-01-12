@@ -7,4 +7,4 @@ RELEASE=`grep Release: tomcat.spec    | sed "s/Release:\s\+\([0-9]*\).*/\1/"`
 VER="$MAJOR.$MINOR.$PATCH-$RELEASE"
 FILE=`ls *.rpm`
 echo "::set-output name=VERSION::$VER"
-ehco "::set-output name=$FILE"
+echo "::set-output name=FILE::$FILE"
