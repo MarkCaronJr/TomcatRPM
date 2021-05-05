@@ -1,11 +1,11 @@
 %define major_version 9
 %define minor_version 0
-%define patch_version 41
+%define patch_version 45
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
