@@ -1,0 +1,16 @@
+[Unit]
+Description=Apache Tomcat 9 service
+
+[Service]
+# DO NOT CHANGE THESE
+ExecStart=/opt/apache-tomcat-9/bin/startup.sh
+ExecStop=/opt/apache-tomcat-9/bin/shutdown.sh
+Type=forking
+Environment="CATALINA_HOME=/opt/apache-tomcat-9
+
+# DO NOT CHANGE THIS HERE, use systemctl edit tomcat9 
+# (or what ever you've called your service file if running multiple instances )
+Environment="CATALINA_BASE=/usr/local/tomcat/default"
+
+[Install]
+WantedBy=multi-user.target

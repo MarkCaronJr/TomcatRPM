@@ -5,7 +5,7 @@
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -15,7 +15,7 @@ Patch0: manager-stig.patch
 Patch1: serverxml-stig.patch
 Patch2: webxml-stig.patch
 
-
+BuildRequires: systemd
 BuildArch: noarch
 Requires: java >= 1.8.0
 Requires(pre): shadow-utils
@@ -46,11 +46,32 @@ rm -rf /opt/apache-tomcat-%{major_version}
 %patch1 -p1
 %patch2 -p1
 %build
+cat > tomcat%{major_version}.service <<EOF
+[Unit]
+Description=Apache Tomcat %{major_version} service
+
+[Service]
+# DO NOT CHANGE THESE
+ExecStart=/opt/apache-tomcat-%{major_version}/bin/startup.sh
+ExecStop=/opt/apache-tomcat-%{major_version}/bin/shutdown.sh
+Type=forking
+Environment="CATALINA_HOME=/opt/apache-tomcat-%{major_version}
+
+# DO NOT CHANGE THIS HERE, use systemctl edit tomcat9 
+# (or what ever you've called your service file if running multiple instances )
+Environment="CATALINA_BASE=/usr/local/tomcat/default"
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 %install
 find . -name "*.bat" -exec rm {} \;
+mkdir -p %{buildroot}/%{_unitdir}
 mkdir -p %{buildroot}/%{catalina_home}
 mkdir -p %{buildroot}/%{catalina_base}/lib
 mkdir -p %{buildroot}/%{catalina_base}/webapps
+install -m 644 tomcat%{major_version}.service %{buildroot}%{_unitdir}
 cp -r bin %{buildroot}/%{catalina_home}
 cp -r bin %{buildroot}/%{catalina_base}
 cp -r lib %{buildroot}/%{catalina_home}
@@ -60,6 +81,7 @@ cp -r work %{buildroot}/%{catalina_base}
 cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
 cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 %files
+%attr(0644,root,root) %{_unitdir}/tomcat9.service
 %defattr(0640,tomcat,%tomcat_group,0750)
 /%{catalina_home}/*
 /%{catalina_base}/*
