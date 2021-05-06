@@ -90,6 +90,7 @@ cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
+%config(noreplace) /%{catalina_base}/webapps/*
 #%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/conf
 #%attr(-,tomcat,%tomcat_group) /%{catalina_base}/conf/*
 #%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/lib
