@@ -77,6 +77,7 @@ cp -r bin %{buildroot}/%{catalina_base}
 cp -r lib %{buildroot}/%{catalina_home}
 cp -r conf %{buildroot}/%{catalina_base}
 mkdir -p %{buildroot}/%{catalina_base}/temp
+mkdir -p %{buildroot}/%{catalina_base}/logs
 cp -r work %{buildroot}/%{catalina_base}
 cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
 cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
@@ -89,6 +90,7 @@ cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
+%config(noreplace) /%{catalina_base}/webapps/*
 #%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/conf
 #%attr(-,tomcat,%tomcat_group) /%{catalina_base}/conf/*
 #%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/lib
