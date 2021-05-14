@@ -5,7 +5,7 @@
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -52,13 +52,18 @@ Description=Apache Tomcat %{major_version} service
 
 [Service]
 # DO NOT CHANGE THESE
-ExecStart=/opt/apache-tomcat-%{major_version}/bin/startup.sh
-ExecStop=/opt/apache-tomcat-%{major_version}/bin/shutdown.sh
-Type=forking
-Environment="CATALINA_HOME=/opt/apache-tomcat-%{major_version}
+
+User=%{tomcat_user}
+Group=%{tomcat_group}
+ExecStart=/opt/apache-tomcat-%{major_version}/bin/catalina.sh run
+
+SuccessExitStatus=143
+
+Environment="CATALINA_HOME=/opt/apache-tomcat-%{major_version}"
 
 # DO NOT CHANGE THIS HERE, use systemctl edit tomcat9 
 # (or what ever you've called your service file if running multiple instances )
+# If you are running multiple instances make a copy of the tomcat9.service in %{_unit_dir}
 Environment="CATALINA_BASE=/usr/local/tomcat/default"
 
 [Install]
