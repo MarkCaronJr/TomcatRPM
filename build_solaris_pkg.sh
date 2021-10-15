@@ -27,6 +27,9 @@ rm -r host-manager
 rm -r docs
 rm -r examples
 rm -r ROOT
+cd ../conf
+rm -f *.bat
+
 cd $BUILDDIR
 mv $TOMCAT_DIR/work $PKG_ROOT/$CATALINA_BASE
 mv $TOMCAT_DIR/temp $PKG_ROOT/$CATALINA_BASE
@@ -41,3 +44,7 @@ pkgdepend resolve -m apache-tomcat.p5m.3
 
 echo "verifying package"
 pkglint  apache-tomcat.p5m.3.res
+pkgrepo create repo
+pkgsend -s repo publish -d root apache-tomcat.p5m.3.res
+pkgrecv -s repo -a -d apache-tomcat-9.p5p apache-tomcat-9
+

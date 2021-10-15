@@ -1,7 +1,6 @@
-dir  path=opt owner=root group=bin mode=0755
 dir  path=opt/apache-tomcat-9 owner=root group=bin mode=0755
 file opt/apache-tomcat-9/BUILDING.txt path=opt/apache-tomcat-9/BUILDING.txt \
-    owner=root group=bin mode=0640
+    owner=root group=sys mode=0640
 file opt/apache-tomcat-9/CONTRIBUTING.md \
     path=opt/apache-tomcat-9/CONTRIBUTING.md owner=root group=bin mode=0640
 file opt/apache-tomcat-9/LICENSE path=opt/apache-tomcat-9/LICENSE owner=root \
@@ -158,9 +157,8 @@ file opt/apache-tomcat-9/lib/tomcat-websocket.jar \
 file opt/apache-tomcat-9/lib/websocket-api.jar \
     path=opt/apache-tomcat-9/lib/websocket-api.jar owner=root group=bin \
     mode=0640
-dir  path=usr owner=root group=bin mode=0755
-dir  path=usr/local owner=root group=bin mode=0755
-dir  path=usr/local/tomcat owner=root group=bin mode=0755
+dir  path=usr/local owner=root group=sys mode=0755
+dir  path=usr/local/tomcat owner=root group=sys mode=0755
 dir  path=usr/local/tomcat/default owner=root group=bin mode=0755
 dir  path=usr/local/tomcat/default/conf owner=root group=bin mode=0700
 file usr/local/tomcat/default/conf/catalina.policy \
