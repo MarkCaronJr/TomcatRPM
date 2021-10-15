@@ -1,4 +1,5 @@
 *.tar.gz
 *.rpm
 build
+solaris_pkg
 checksum.txt

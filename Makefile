@@ -13,5 +13,13 @@ rpm: download
 	docker build --tag rpmbuild .
 	docker run -v `pwd`:/root/rpmbuild/RPMS/noarch rpmbuild 
 
+solaris: download
+	./build_solaris_pkg.sh "apache-tomcat-${VERSION}.tar.gz"
+
+	
+
+clean_solaris:
+	rm -rf solaris_pkg
+
 test:
 	docker run -it -v `pwd`:/rpms nimmis/java-centos:openjdk-8-jdk
