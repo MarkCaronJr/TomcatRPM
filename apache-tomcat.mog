@@ -1,0 +1,6 @@
+set name=pkg.fmri value=pkg://usace-hec/web/java-servlet/apache-tomcat-9@9.0.52,5.11-0
+set name=pkg.summary value="Apache Tomcat 9"
+set name=pkg.description value="Apache Tomcat 9 with baselien STIG compliant configuration"
+set name=publisher value="Hydrologic Engineering Center"
+set name=pkg.info.classification value="org.opensolaris.category.2008:Web Services/Application and Web Servers"
+depend type=require fmri=pkg:/runtime/java/jre-8

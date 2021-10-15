@@ -22,7 +22,22 @@ mv $TOMCAT_DIR/lib $PKG_ROOT/$CATALINA_HOME
 mv $TOMCAT_DIR/conf $PKG_ROOT/$CATALINA_BASE
 mv $TOMCAT_DIR/logs $PKG_ROOT/$CATALINA_BASE
 mv $TOMCAT_DIR/webapps $PKG_ROOT/$CATALINA_BASE
+cd $PKG_ROOT/$CATALINA_BASE/webapps
+rm -r host-manager
+rm -r docs
+rm -r examples
+rm -r ROOT
+cd $BUILDDIR
 mv $TOMCAT_DIR/work $PKG_ROOT/$CATALINA_BASE
 mv $TOMCAT_DIR/temp $PKG_ROOT/$CATALINA_BASE
 
 mv $TOMCAT_DIR/* $PKG_ROOT/$CATALINA_HOME
+
+echo "generate solaris package information"
+#pkgsend generate root | pkgfmt > apache-tomcat.p5m.1
+pkgmogrify ../apache-tomcat.p5m.1 ../apache-tomcat.mog | pkgfmt > apache-tomcat.p5m.2
+pkgdepend generate -md root apache-tomcat.p5m.2 | pkgfmt > apache-tomcat.p5m.3
+pkgdepend resolve -m apache-tomcat.p5m.3
+
+echo "verifying package"
+pkglint  apache-tomcat.p5m.3.res
