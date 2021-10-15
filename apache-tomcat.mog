@@ -4,3 +4,6 @@ set name=pkg.description value="Apache Tomcat 9 with baselien STIG compliant con
 set name=publisher value="Hydrologic Engineering Center"
 set name=pkg.info.classification value="org.opensolaris.category.2008:Web Services/Application and Web Servers"
 depend type=require fmri=pkg:/runtime/java/jre-8
+depend fmri=pkg:/system/core-os type=require
+group groupname=tomcat
+user group=tomcat login-shell=/bin/sh password=*LK* username=tomcat

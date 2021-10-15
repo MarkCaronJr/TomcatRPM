@@ -158,101 +158,101 @@ file opt/apache-tomcat-9/lib/websocket-api.jar \
     path=opt/apache-tomcat-9/lib/websocket-api.jar owner=root group=bin \
     mode=0640
 dir  path=usr/local owner=root group=sys mode=0755
-dir  path=usr/local/tomcat owner=root group=sys mode=0755
-dir  path=usr/local/tomcat/default owner=root group=bin mode=0755
-dir  path=usr/local/tomcat/default/conf owner=root group=bin mode=0700
+dir  path=usr/local/tomcat owner=tomcat group=tomcat mode=0755
+dir  path=usr/local/tomcat/default owner=tomcat group=tomcat mode=0755
+dir  path=usr/local/tomcat/default/conf owner=tomcat group=tomcat mode=0700
 file usr/local/tomcat/default/conf/catalina.policy \
-    path=usr/local/tomcat/default/conf/catalina.policy owner=root group=bin \
+    path=usr/local/tomcat/default/conf/catalina.policy owner=tomcat group=tomcat \
     mode=0600
 file usr/local/tomcat/default/conf/catalina.properties \
-    path=usr/local/tomcat/default/conf/catalina.properties owner=root \
-    group=bin mode=0600
+    path=usr/local/tomcat/default/conf/catalina.properties owner=tomcat \
+    group=tomcat mode=0600
 file usr/local/tomcat/default/conf/context.xml \
-    path=usr/local/tomcat/default/conf/context.xml owner=root group=bin \
+    path=usr/local/tomcat/default/conf/context.xml owner=tomcat group=tomcat \
     mode=0600
 file usr/local/tomcat/default/conf/jaspic-providers.xml \
-    path=usr/local/tomcat/default/conf/jaspic-providers.xml owner=root \
-    group=bin mode=0600
+    path=usr/local/tomcat/default/conf/jaspic-providers.xml owner=tomcat \
+    group=tomcat mode=0600
 file usr/local/tomcat/default/conf/jaspic-providers.xsd \
-    path=usr/local/tomcat/default/conf/jaspic-providers.xsd owner=root \
-    group=bin mode=0600
+    path=usr/local/tomcat/default/conf/jaspic-providers.xsd owner=tomcat \
+    group=tomcat mode=0600
 file usr/local/tomcat/default/conf/logging.properties \
-    path=usr/local/tomcat/default/conf/logging.properties owner=root \
-    group=bin mode=0600
+    path=usr/local/tomcat/default/conf/logging.properties owner=tomcat \
+    group=tomcat mode=0600
 file usr/local/tomcat/default/conf/server.xml \
-    path=usr/local/tomcat/default/conf/server.xml owner=root group=bin \
+    path=usr/local/tomcat/default/conf/server.xml owner=tomcat group=tomcat \
     mode=0600
 file usr/local/tomcat/default/conf/tomcat-users.xml \
-    path=usr/local/tomcat/default/conf/tomcat-users.xml owner=root group=bin \
+    path=usr/local/tomcat/default/conf/tomcat-users.xml owner=tomcat group=tomcat \
     mode=0600
 file usr/local/tomcat/default/conf/tomcat-users.xsd \
-    path=usr/local/tomcat/default/conf/tomcat-users.xsd owner=root group=bin \
+    path=usr/local/tomcat/default/conf/tomcat-users.xsd owner=tomcat group=tomcat \
     mode=0600
 file usr/local/tomcat/default/conf/web.xml \
-    path=usr/local/tomcat/default/conf/web.xml owner=root group=bin mode=0600
-dir  path=usr/local/tomcat/default/logs owner=root group=bin mode=0750
-dir  path=usr/local/tomcat/default/temp owner=root group=bin mode=0750
+    path=usr/local/tomcat/default/conf/web.xml owner=tomcat group=tomcat mode=0600
+dir  path=usr/local/tomcat/default/logs owner=tomcat group=tomcat mode=0750
+dir  path=usr/local/tomcat/default/temp owner=tomcat group=tomcat mode=0750
 file usr/local/tomcat/default/temp/safeToDelete.tmp \
-    path=usr/local/tomcat/default/temp/safeToDelete.tmp owner=root group=bin \
+    path=usr/local/tomcat/default/temp/safeToDelete.tmp owner=tomcat group=tomcat \
     mode=0640
-dir  path=usr/local/tomcat/default/webapps owner=root group=bin mode=0750
-dir  path=usr/local/tomcat/default/webapps/manager owner=root group=bin mode=0750
-dir  path=usr/local/tomcat/default/webapps/manager/META-INF owner=root \
-    group=bin mode=0750
+dir  path=usr/local/tomcat/default/webapps owner=tomcat group=tomcat mode=0750
+dir  path=usr/local/tomcat/default/webapps/manager owner=tomcat group=tomcat mode=0750
+dir  path=usr/local/tomcat/default/webapps/manager/META-INF owner=tomcat \
+    group=tomcat mode=0750
 file usr/local/tomcat/default/webapps/manager/META-INF/context.xml \
     path=usr/local/tomcat/default/webapps/manager/META-INF/context.xml \
-    owner=root group=bin mode=0640
-dir  path=usr/local/tomcat/default/webapps/manager/WEB-INF owner=root group=bin \
+    owner=tomcat group=tomcat mode=0640
+dir  path=usr/local/tomcat/default/webapps/manager/WEB-INF owner=tomcat group=tomcat \
     mode=0750
-dir  path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp owner=root \
-    group=bin mode=0750
+dir  path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp owner=tomcat \
+    group=tomcat mode=0750
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/401.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/401.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/403.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/403.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/404.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/404.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorCerts.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorCerts.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorCiphers.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorCiphers.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorTrustedCerts.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/connectorTrustedCerts.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/sessionDetail.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/sessionDetail.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/sessionsList.jsp \
     path=usr/local/tomcat/default/webapps/manager/WEB-INF/jsp/sessionsList.jsp \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/WEB-INF/web.xml \
-    path=usr/local/tomcat/default/webapps/manager/WEB-INF/web.xml owner=root \
-    group=bin mode=0640
-dir  path=usr/local/tomcat/default/webapps/manager/css owner=root group=bin \
+    path=usr/local/tomcat/default/webapps/manager/WEB-INF/web.xml owner=tomcat \
+    group=tomcat mode=0640
+dir  path=usr/local/tomcat/default/webapps/manager/css owner=tomcat group=tomcat \
     mode=0750
 file usr/local/tomcat/default/webapps/manager/css/manager.css \
-    path=usr/local/tomcat/default/webapps/manager/css/manager.css owner=root \
-    group=bin mode=0640
-dir  path=usr/local/tomcat/default/webapps/manager/images owner=root group=bin \
+    path=usr/local/tomcat/default/webapps/manager/css/manager.css owner=tomcat \
+    group=tomcat mode=0640
+dir  path=usr/local/tomcat/default/webapps/manager/images owner=tomcat group=tomcat \
     mode=0750
 file usr/local/tomcat/default/webapps/manager/images/asf-logo.svg \
     path=usr/local/tomcat/default/webapps/manager/images/asf-logo.svg \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/images/tomcat.svg \
     path=usr/local/tomcat/default/webapps/manager/images/tomcat.svg \
-    owner=root group=bin mode=0640
+    owner=tomcat group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/index.jsp \
-    path=usr/local/tomcat/default/webapps/manager/index.jsp owner=root \
-    group=bin mode=0640
+    path=usr/local/tomcat/default/webapps/manager/index.jsp owner=tomcat \
+    group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/status.xsd \
-    path=usr/local/tomcat/default/webapps/manager/status.xsd owner=root \
-    group=bin mode=0640
+    path=usr/local/tomcat/default/webapps/manager/status.xsd owner=tomcat \
+    group=tomcat mode=0640
 file usr/local/tomcat/default/webapps/manager/xform.xsl \
-    path=usr/local/tomcat/default/webapps/manager/xform.xsl owner=root \
-    group=bin mode=0640
-dir  path=usr/local/tomcat/default/work owner=root group=bin mode=0750
+    path=usr/local/tomcat/default/webapps/manager/xform.xsl owner=tomcat \
+    group=tomcat mode=0640
+dir  path=usr/local/tomcat/default/work owner=tomcat group=tomcat mode=0750
