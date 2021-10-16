@@ -3,7 +3,10 @@ set name=pkg.summary value="Apache Tomcat 9"
 set name=pkg.description value="Apache Tomcat 9 with baselien STIG compliant configuration"
 set name=publisher value="Hydrologic Engineering Center"
 set name=pkg.info.classification value="org.opensolaris.category.2008:Web Services/Application and Web Servers"
+set name=pkg.maintainer-url value="https://github.com/HydrologicEngineeringCenter/TomcatRPM"
+#license license="Apache v2.0"
 depend type=require fmri=pkg:/runtime/java/jre-8
 depend fmri=pkg:/system/core-os type=require
 group groupname=tomcat
 user group=tomcat login-shell=/bin/sh password=*LK* username=tomcat
+file lib/svc/manifest/network/apache-tomcat-9.xml path=lib/svc/manifest/network/apache-tomcat-9.xml owner=root group=bin mode=0644 restart_fmri=svc:/system/manifest-import:default

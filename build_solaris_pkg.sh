@@ -15,9 +15,8 @@ if [ -d $PKG_ROOT ]; then rm -rf $PKG_ROOT; fi
 mkdir $PKG_ROOT
 mkdir -p $PKG_ROOT/$CATALINA_BASE
 mkdir -p $PKG_ROOT/$CATALINA_HOME
-mkdir -p $PKG_ROOT/lib/svc/manifest/site
-mkdir -p $PKG_ROOT/lib/svc/method
-
+mkdir -p $PKG_ROOT/lib/svc/manifest/network
+cp ../solaris/apache-tomcat-9.xml $PKG_ROOT/lib/svc/manifest/network/
 
 mv $TOMCAT_DIR/bin $PKG_ROOT/$CATALINA_HOME
 mv $TOMCAT_DIR/lib $PKG_ROOT/$CATALINA_HOME
