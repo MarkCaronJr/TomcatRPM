@@ -18,6 +18,7 @@ mkdir -p $PKG_ROOT/$CATALINA_HOME
 mkdir -p $PKG_ROOT/lib/svc/manifest/network
 cp ../solaris/apache-tomcat-9.xml $PKG_ROOT/lib/svc/manifest/network/
 
+echo "Creating directory structure"
 mv $TOMCAT_DIR/bin $PKG_ROOT/$CATALINA_HOME
 mv $TOMCAT_DIR/lib $PKG_ROOT/$CATALINA_HOME
 
@@ -35,8 +36,16 @@ rm -f *.bat
 cd $BUILDDIR
 mv $TOMCAT_DIR/work $PKG_ROOT/$CATALINA_BASE
 mv $TOMCAT_DIR/temp $PKG_ROOT/$CATALINA_BASE
-
+echo "Move remaining files to CATALINA_HOME"
 mv $TOMCAT_DIR/* $PKG_ROOT/$CATALINA_HOME
+
+echo "Patching config files"
+cd $PKG_ROOT/$CATALINA_BASE
+patch -p1 < $BUILDDIR/../serverxml-stig.patch
+patch -p1 < $BUILDDIR/../webxml-stig.patch
+patch -p1 < $BUILDDIR/../manager-stig.patch
+
+cd $BUILDDIR
 
 echo "generate solaris package information"
 #pkgsend generate root | pkgfmt > apache-tomcat.p5m.1

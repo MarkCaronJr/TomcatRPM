@@ -1,22 +1,23 @@
---- apache-tomcat-9.0.39/conf/server.xml	2020-10-06 07:17:24.000000000 -0700
-+++ apache-tomcat-9.0.39/conf/server-stig.xml	2020-11-16 12:43:37.804567102 -0800
-@@ -19,13 +19,13 @@
+--- apache-tomcat-9.0.52/conf/server.xml	2021-07-30 21:12:17.000000000 -0700
++++ apache-tomcat-9.0.52/conf/serverxml-stig.xml	2021-10-16 09:29:00.044369553 -0700
+@@ -19,13 +19,14 @@
       define subcomponents such as "Valves" at this level.
       Documentation at /docs/config/server.html
   -->
 -<Server port="8005" shutdown="SHUTDOWN">
-+<Server port="-1" >
++<Server port="-1" shutdown="SHUTDOWN">
    <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
    <!-- Security listener. Documentation at /docs/config/listeners.html
    <Listener className="org.apache.catalina.security.SecurityListener" />
    -->
-   <!--APR library loader. Documentation at /docs/apr.html -->
+   <!-- APR library loader. Documentation at /docs/apr.html -->
 -  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" FIPSMode="on" />
++  <!-- NOTE: ONLY TURN FIPS MODE ON IF YOU HAVE AN SSL CONNECTOR ENABLED; this is likely not true during your initial setup -->
++  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" FIPSMode="off" />
    <!-- Prevent memory leaks due to use of particular java/javax APIs-->
    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
-@@ -68,13 +68,19 @@
+@@ -68,13 +69,19 @@
      -->
      <Connector port="8080" protocol="HTTP/1.1"
                 connectionTimeout="20000"
@@ -38,7 +39,7 @@
      -->
      <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443
           This connector uses the NIO implementation. The default
-@@ -86,7 +92,12 @@
+@@ -86,7 +93,12 @@
      -->
      <!--
      <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
@@ -52,7 +53,7 @@
          <SSLHostConfig>
              <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
                           type="RSA" />
-@@ -101,7 +112,12 @@
+@@ -101,7 +113,12 @@
      -->
      <!--
      <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
@@ -66,7 +67,7 @@
          <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
          <SSLHostConfig>
              <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
-@@ -112,13 +128,7 @@
+@@ -112,13 +129,7 @@
      </Connector>
      -->
  
@@ -81,7 +82,7 @@
  
      <!-- An Engine represents the entry point (within Catalina) that processes
           every request.  The Engine implementation for Tomcat stand alone
-@@ -140,30 +150,26 @@
+@@ -140,17 +151,12 @@
  
        <!-- Use the LockOutRealm to prevent attempts to guess user passwords
             via a brute-force attack -->
@@ -102,6 +103,7 @@
  
          <!-- SingleSignOn valve, share authentication between web applications
               Documentation at: /docs/config/valve.html -->
+@@ -157,13 +163,14 @@
          <!--
          <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
          -->
