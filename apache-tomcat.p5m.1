@@ -163,39 +163,39 @@ dir  path=usr/local/tomcat/default owner=tomcat group=tomcat mode=0755
 dir  path=usr/local/tomcat/default/conf owner=tomcat group=tomcat mode=0700
 file usr/local/tomcat/default/conf/catalina.policy \
     path=usr/local/tomcat/default/conf/catalina.policy owner=tomcat group=tomcat \
-    mode=0600
+    mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/catalina.properties \
     path=usr/local/tomcat/default/conf/catalina.properties owner=tomcat \
-    group=tomcat mode=0600
+    group=tomcat mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/context.xml \
     path=usr/local/tomcat/default/conf/context.xml owner=tomcat group=tomcat \
-    mode=0600
+    mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/jaspic-providers.xml \
     path=usr/local/tomcat/default/conf/jaspic-providers.xml owner=tomcat \
-    group=tomcat mode=0600
+    group=tomcat mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/jaspic-providers.xsd \
     path=usr/local/tomcat/default/conf/jaspic-providers.xsd owner=tomcat \
-    group=tomcat mode=0600
+    group=tomcat mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/logging.properties \
     path=usr/local/tomcat/default/conf/logging.properties owner=tomcat \
-    group=tomcat mode=0600
+    group=tomcat mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/server.xml \
     path=usr/local/tomcat/default/conf/server.xml owner=tomcat group=tomcat \
-    mode=0600
+    mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/tomcat-users.xml \
     path=usr/local/tomcat/default/conf/tomcat-users.xml owner=tomcat group=tomcat \
-    mode=0600
+    mode=0600 presever=renamenew
 file usr/local/tomcat/default/conf/tomcat-users.xsd \
     path=usr/local/tomcat/default/conf/tomcat-users.xsd owner=tomcat group=tomcat \
-    mode=0600
+    mode=0600 preserve=renamenew
 file usr/local/tomcat/default/conf/web.xml \
-    path=usr/local/tomcat/default/conf/web.xml owner=tomcat group=tomcat mode=0600
+    path=usr/local/tomcat/default/conf/web.xml owner=tomcat group=tomcat mode=0600 preserve=renamenew
 dir  path=usr/local/tomcat/default/logs owner=tomcat group=tomcat mode=0750
 dir  path=usr/local/tomcat/default/temp owner=tomcat group=tomcat mode=0750
 file usr/local/tomcat/default/temp/safeToDelete.tmp \
     path=usr/local/tomcat/default/temp/safeToDelete.tmp owner=tomcat group=tomcat \
     mode=0640
-dir  path=usr/local/tomcat/default/webapps owner=tomcat group=tomcat mode=0750
+dir  path=usr/local/tomcat/default/webapps owner=tomcat group=tomcat mode=0750 
 dir  path=usr/local/tomcat/default/webapps/manager owner=tomcat group=tomcat mode=0750
 dir  path=usr/local/tomcat/default/webapps/manager/META-INF owner=tomcat \
     group=tomcat mode=0750

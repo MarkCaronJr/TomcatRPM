@@ -41,9 +41,9 @@ mv $TOMCAT_DIR/* $PKG_ROOT/$CATALINA_HOME
 
 echo "Patching config files"
 cd $PKG_ROOT/$CATALINA_BASE
-patch -p1 < $BUILDDIR/../serverxml-stig.patch
-patch -p1 < $BUILDDIR/../webxml-stig.patch
-patch -p1 < $BUILDDIR/../manager-stig.patch
+#patch -p1 < $BUILDDIR/../serverxml-stig.patch
+#patch -p1 < $BUILDDIR/../webxml-stig.patch
+#patch -p1 < $BUILDDIR/../manager-stig.patch
 
 cd $BUILDDIR
 
