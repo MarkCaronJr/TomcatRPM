@@ -5,7 +5,7 @@
     Manifest created by svcbundle (2021-Oct-15 15:20:40-0700)
 -->
 <service_bundle type="manifest" name="network/apache-tomcat-9">
-    <service version="1" type="service" name="network/apache-tomcat-9">
+    <service version="1" type="service" name="network/tomcat9">
         <!--
             The following dependency keeps us from starting until the
             multi-user milestone is reached.
