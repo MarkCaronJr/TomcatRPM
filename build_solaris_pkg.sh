@@ -57,5 +57,6 @@ echo "verifying package"
 pkglint  apache-tomcat.p5m.3.res
 pkgrepo create repo
 pkgsend -s repo publish -d root apache-tomcat.p5m.3.res
+rm apache-tomcat-9.p5p
 pkgrecv -s repo -a -d apache-tomcat-9.p5p apache-tomcat-9
 
