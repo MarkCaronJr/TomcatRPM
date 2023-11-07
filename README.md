@@ -57,3 +57,24 @@ To create another instance of the tomcat service
 ```
 
 
+# Updating the tomcat version
+
+## Makefile
+
+Update the version number and sha512 key (from the tomcat.apache.orgs download page)
+
+## Spec
+Update the appropriate digits at the top of the file
+
+## Dealing with rejected patches
+
+Every-so-often Tomcat makes changes to the baseline server.xml file that branches the patches. Most of the patch itself will still be applied.
+To fix this situation either unzip the apache-tomcat-version.tar.gz file and manually apply the patch with diff in a way that creates server.xml.rej file.
+
+Manually apply the rejected changes to the server.xml.
+
+Run:
+
+`diff -u apache-tomcat-<version>/conf/server.xml.org apache-tomcat-<version>/conf/server.xml.org > ${DIRECTORY_TO/}serverxml-stig.patch`
+
+and as appropriate for web.xml and the manager-stig.patch.

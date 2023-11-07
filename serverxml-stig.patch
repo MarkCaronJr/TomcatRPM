@@ -1,5 +1,5 @@
---- apache-tomcat-9.0.52/conf/server.xml	2021-07-30 21:12:17.000000000 -0700
-+++ apache-tomcat-9.0.52/conf/serverxml-stig.xml	2021-10-16 09:29:00.044369553 -0700
+--- apache-tomcat-9.0.82/conf/server.xml.orig	2023-10-11 06:15:08.000000000 -0700
++++ apache-tomcat-9.0.82/conf/server.xml	2023-11-01 15:10:46.070928865 -0700
 @@ -19,13 +19,14 @@
       define subcomponents such as "Valves" at this level.
       Documentation at /docs/config/server.html
@@ -17,57 +17,55 @@
    <!-- Prevent memory leaks due to use of particular java/javax APIs-->
    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
-@@ -68,13 +69,19 @@
-     -->
-     <Connector port="8080" protocol="HTTP/1.1"
+@@ -70,7 +71,10 @@
                 connectionTimeout="20000"
--               redirectPort="8443" />
-+               redirectPort="8443" 
+                redirectPort="8443"
+                maxParameterCount="1000"
+-               />
 +               xpoweredby="false"
 +               server="webthing" 
-+               address="admin must fill in"/>
++               address="admin must fill in"
++              />
      <!-- A "Connector" using the shared thread pool-->
      <!--
      <Connector executor="tomcatThreadPool"
-                port="8080" protocol="HTTP/1.1"
+@@ -78,6 +82,9 @@
                 connectionTimeout="20000"
--               redirectPort="8443" />
-+               redirectPort="8443"
+                redirectPort="8443"
+                maxParameterCount="1000"
 +               xpoweredby="false"
-+               server="webthing"
-+               address="admin must fill in"  />
++               server="webthing" 
++               address="admin must fill in"
+                />
      -->
      <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443
-          This connector uses the NIO implementation. The default
-@@ -86,7 +93,12 @@
+@@ -89,8 +96,11 @@
      -->
      <!--
      <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
--               maxThreads="150" SSLEnabled="true">
-+               maxThreads="150" SSLEnabled="true" SSLEnabledProtocols="TLSv1.2"
-+               scheme="https" secure="true"
+-               maxThreads="150" SSLEnabled="true"
++               maxThreads="150" SSLEnabled="true" SLEnabledProtocols="TLSv1.2"
+                maxParameterCount="1000"
 +               xpoweredby="false"
 +               server="webthing" 
-+               clientAuth="want"
-+               address="admin must fill in" >
++               address="admin must fill in"
+                >
          <SSLHostConfig>
              <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
-                          type="RSA" />
-@@ -101,7 +113,12 @@
+@@ -106,8 +116,11 @@
      -->
      <!--
      <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
--               maxThreads="150" SSLEnabled="true" >
-+               maxThreads="150" SSLEnabled="true" SSLEnabledProtocols="TLSv1.2" 
-+               scheme="https" secure="true"
+-               maxThreads="150" SSLEnabled="true"
++               maxThreads="150" SSLEnabled="true" SLEnabledProtocols="TLSv1.2"
+                maxParameterCount="1000"
 +               xpoweredby="false"
-+               server="webthing"
-+               clientAuth="want"
-+               address="admin must fill in" >
++               server="webthing" 
++               address="admin must fill in"
+                >
          <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
          <SSLHostConfig>
-             <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
-@@ -112,13 +129,7 @@
+@@ -119,16 +132,6 @@
      </Connector>
      -->
  
@@ -76,13 +74,15 @@
 -    <Connector protocol="AJP/1.3"
 -               address="::1"
 -               port="8009"
--               redirectPort="8443" />
+-               redirectPort="8443"
+-               maxParameterCount="1000"
+-               />
 -    -->
-+   
- 
+-
      <!-- An Engine represents the entry point (within Catalina) that processes
           every request.  The Engine implementation for Tomcat stand alone
-@@ -140,17 +151,12 @@
+          analyzes the HTTP headers included with the request, and passes them
+@@ -149,30 +152,26 @@
  
        <!-- Use the LockOutRealm to prevent attempts to guess user passwords
             via a brute-force attack -->
@@ -103,7 +103,6 @@
  
          <!-- SingleSignOn valve, share authentication between web applications
               Documentation at: /docs/config/valve.html -->
-@@ -157,13 +163,14 @@
          <!--
          <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
          -->

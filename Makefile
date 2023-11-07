@@ -1,5 +1,5 @@
-VERSION = 9.0.54
-SHA512 = "83430f24d42186ce2ff51eeef2f7a5517048f37d9050c45cac1e3dba8926d61a1f7f5aba122a34a11ac1dbdd3c1f6d98671841047df139394d43751263de57c3 *apache-tomcat-9.0.54.tar.gz"
+VERSION = 9.0.82
+SHA512 = "2b13f11f4e0d0b9aee667c256c6ea5d2853b067e8b7e8293f117da050d3833fda8aa9d9ad278bd12fb7fbf0825108c7d0384509f44c05f9bad73eb099cfaa128 *apache-tomcat-9.0.82.tar.gz"
 
 .DEFAULT_GOAL := rpm
 
@@ -11,7 +11,7 @@ download:
 	
 rpm: download
 	docker build --tag rpmbuild .
-	docker run -v `pwd`:/root/rpmbuild/RPMS/noarch rpmbuild 
+	docker run -v `pwd`:/root/rpmbuild/RPMS/noarch rpmbuild
 
 solaris: download
 	./build_solaris_pkg.sh "apache-tomcat-${VERSION}.tar.gz"

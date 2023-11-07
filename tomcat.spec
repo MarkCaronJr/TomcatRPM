@@ -1,6 +1,6 @@
 %define major_version 9
 %define minor_version 0
-%define patch_version 54
+%define patch_version 82
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
@@ -38,8 +38,6 @@ getent group %tomcat_group  || groupadd -r %tomcat_group
 getent passwd %tomcat_user  || \
 useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
     -c "tomcat service account" %tomcat_user
-%preun
-rm -rf /opt/apache-tomcat-%{major_version}
 %prep
 %setup -q 
 %patch0 -p1
@@ -105,5 +103,22 @@ cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 #%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/work
 #%attr(0640,tomcat,%tomcat_group,0750) /%{catalina_base}/webapps
 
+%post
+echo $1
+if [ "$1" == 2 ]; then
+    echo "checking %{catalina_home}"
+    if [ ! -d "%{catalina_home}" ]; then
+        echo "This has failed due to a misunderstanding during the original RPM creation."
+        echo "The binaries were removed but not added back in correctly leaving an unsable instance."
+        echo "Please do the following: "
+        echo "1. If used, backup %{catalina_base}"
+        echo "2. yum remove apache-tomcat"
+        echo "3. rm -rf %{catalina_base}"
+        echo "4. yum install apache-tomcat"
+        echo "5. copy your backup back to %{catalina_base}"
+        echo "The problem portion of the RPM has been removed and this won't be an issue in the future. Sorry for the inconvience."
+        exit 1
+    fi
+fi
 
 
