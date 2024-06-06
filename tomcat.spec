@@ -82,8 +82,6 @@ cp -r conf %{buildroot}/%{catalina_base}
 mkdir -p %{buildroot}/%{catalina_base}/temp
 mkdir -p %{buildroot}/%{catalina_base}/logs
 cp -r work %{buildroot}/%{catalina_base}
-cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
-cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
 
 %files
 %attr(0644,root,root) %{_unitdir}/tomcat9.service
