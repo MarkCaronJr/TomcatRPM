@@ -92,15 +92,6 @@ cp -r work %{buildroot}/%{catalina_base}
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
-%config(noreplace) /%{catalina_base}/webapps/*
-#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/conf
-#%attr(-,tomcat,%tomcat_group) /%{catalina_base}/conf/*
-#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/lib
-#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/bin
-#%attr(-,tomcat,%tomcat_group) /%{catalina_base}/bin/*
-#%attr(-750,tomcat,%tomcat_group) /%{catalina_base}/temp
-#%attr(0750,tomcat,%tomcat_group) /%{catalina_base}/work
-#%attr(0640,tomcat,%tomcat_group,0750) /%{catalina_base}/webapps
 
 %post
 echo $1
@@ -111,14 +102,14 @@ echo $1
 #This gives users the ability to remove the manager applications if unneedded and them not be reinstalled during upgrades.  
 if [ "$1" == 1 ]; then
     # Fresh install
-    cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
-    cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
+    cp -r webapps/manager %{catalina_base}/webapps/manager
+    cp -r webapps/host-manager %{catalina_base}/webapps/host-manager
 elif [ "$1" == 2 ]; then
     # Upgrade
     if [ -d %{catalina_base}/webapps/manager ]; then
-        cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
+        cp -r webapps/manager %{catalina_base}/webapps/manager
     fi
     if [ -d %{catalina_base}/webapps/host-manager ]; then
-        cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
+        cp -r webapps/host-manager %{catalina_base}/webapps/host-manager
     fi
 fi
