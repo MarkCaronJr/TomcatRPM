@@ -113,3 +113,4 @@ elif [ "$1" == 2 ]; then
         cp -r webapps/host-manager %{catalina_base}/webapps/host-manager
     fi
 fi
+
