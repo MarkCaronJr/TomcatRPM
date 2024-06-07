@@ -107,6 +107,24 @@ mkdir -p %{buildroot}/%{catalina_base}/temp
 mkdir -p %{buildroot}/%{catalina_base}/logs
 cp -r work %{buildroot}/%{catalina_base}
 
+#Conditions for installing the manager and host-manager applications
+#If a fresh install, manager application will be installed
+#If an upgrade, manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
+#This gives users the ability to remove the manager applications if unneedded and them not be reinstalled during upgrades.  
+if [ "$1" == 1 ]; then
+    # Fresh install
+    cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
+    cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
+elif [ "$1" == 2 ]; then
+    # Upgrade
+    if [ -d %{catalina_base}/webapps/manager ]; then
+        cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
+    fi
+    if [ -d %{catalina_base}/webapps/host-manager ]; then
+        cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
+    fi
+fi
+
 %files
 %attr(0644,root,root) %{_unitdir}/tomcat9.service
 %defattr(0640,tomcat,%tomcat_group,0750) 
@@ -119,23 +137,4 @@ cp -r work %{buildroot}/%{catalina_base}
 %config(noreplace) /%{catalina_base}/webapps/*
 
 %post
-echo $1
-
-#Conditions for installing the manager and host-manager applications
-#If a fresh install, manager application will be installed
-#If an upgrade, manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
-#This gives users the ability to remove the manager applications if unneedded and them not be reinstalled during upgrades.  
-if [ "$1" == 1 ]; then
-    # Fresh install
-    cp -r webapps/manager %{catalina_base}/webapps/manager
-    cp -r webapps/host-manager %{catalina_base}/webapps/host-manager
-elif [ "$1" == 2 ]; then
-    # Upgrade
-    if [ -d %{catalina_base}/webapps/manager ]; then
-        cp -r webapps/manager %{catalina_base}/webapps/manager
-    fi
-    if [ -d %{catalina_base}/webapps/host-manager ]; then
-        cp -r webapps/host-manager %{catalina_base}/webapps/host-manager
-    fi
-fi
 
