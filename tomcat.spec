@@ -108,10 +108,9 @@ mkdir -p %{buildroot}/%{catalina_base}/logs
 cp -r work %{buildroot}/%{catalina_base}
 
 # Copy manager and host-manager applications to buildroot during install for potential use in %post
-mkdir -p %{buildroot}/manager
-cp -r webapps/manager %{buildroot}/manager
-mkdir -p %{buildroot}/host-manager
-cp -r webapps/host-manager %{buildroot}/host-manager
+mkdir -p %{buildroot}/manager-apps
+cp -r webapps/manager %{buildroot}/manager-apps
+cp -r webapps/host-manager %{buildroot}/manager-apps
 
 %files
 %attr(0644,root,root) %{_unitdir}/tomcat9.service
@@ -123,8 +122,8 @@ cp -r webapps/host-manager %{buildroot}/host-manager
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
-%dir /manager
-%dir /host-manager
+%dir /manager-apps/manager
+%dir /host-apps/host-manager
 
 %post
 #Conditions for installing the manager and host-manager applications
@@ -134,14 +133,14 @@ cp -r webapps/host-manager %{buildroot}/host-manager
 echo $1
 if [ $1 -eq 1 ]; then
     # Fresh install
-    cp -r manager %{catalina_base}/webapps/manager
-    cp -r host-manager %{catalina_base}/webapps/host-manager
+    cp -r /manager-apps/manager %{catalina_base}/webapps/manager
+    cp -r /manager-apps/host-manager %{catalina_base}/webapps/host-manager
 elif [ $1 -eq 2 ]; then
     # Upgrade
     if [ -d %{catalina_base}/webapps/manager ]; then
-        cp -r manager %{catalina_base}/webapps/manager
+        cp -r /manager-apps/manager %{catalina_base}/webapps/manager
     fi
     if [ -d %{catalina_base}/webapps/host-manager ]; then
-        cp -r host-manager %{catalina_base}/webapps/host-manager
+        cp -r /manager-apps/host-manager %{catalina_base}/webapps/host-manager
     fi
 fi
