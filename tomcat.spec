@@ -122,8 +122,6 @@ cp -r webapps/host-manager %{buildroot}/manager-apps
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
-%dir /manager-apps/manager
-%dir /manager-apps/host-manager
 
 %post
 #Conditions for installing the manager and host-manager applications
