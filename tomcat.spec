@@ -5,7 +5,7 @@
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -109,8 +109,9 @@ cp -r work %{buildroot}/%{catalina_base}
 
 %files
 %attr(0644,root,root) %{_unitdir}/tomcat9.service
-%defattr(0640,tomcat,%tomcat_group,0750) /%{catalina_home}/* 
-%defattr(0640,tomcat,%tomcat_group,0750) /%{catalina_base}/*
+%defattr(0640,tomcat,%tomcat_group,0750) 
+/%{catalina_home}/*
+/%{catalina_base}/*
 %attr(0755,root,root) /%{catalina_home}/bin/*
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
