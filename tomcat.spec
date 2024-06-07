@@ -68,15 +68,31 @@ Environment="CATALINA_BASE=/usr/local/tomcat/default"
 WantedBy=multi-user.target
 EOF
 
+cat > setenv.sh <<EOF
+#!/bin/sh
+
+# This is a sample setenv.sh file for Apache Tomcat
+# It is used to define environment variables for Tomcat instances
+
+# Example: Set the maximum heap size for the JVM
+export CATALINA_OPTS="\$CATALINA_OPTS -Xmx1024m"
+
+# Example: Set a custom Java home directory
+# export JAVA_HOME="/path/to/java/home"
+
+# Add any other customizations or environment variables here
+EOF
+
 %install
 find . -name "*.bat" -exec rm {} \;
 mkdir -p %{buildroot}/%{_unitdir}
 mkdir -p %{buildroot}/%{catalina_home}
 mkdir -p %{buildroot}/%{catalina_base}/lib
 mkdir -p %{buildroot}/%{catalina_base}/webapps
+mkdir -p %{buildroot}/%{catalina_base}/bin
 install -m 644 tomcat%{major_version}.service %{buildroot}%{_unitdir}
+install -m 750 setenv.sh %{buildroot}/%{catalina_base}/bin
 cp -r bin %{buildroot}/%{catalina_home}
-cp -r bin %{buildroot}/%{catalina_base}
 cp -r lib %{buildroot}/%{catalina_home}
 cp -r conf %{buildroot}/%{catalina_base}
 mkdir -p %{buildroot}/%{catalina_base}/temp
@@ -92,6 +108,7 @@ cp -r work %{buildroot}/%{catalina_base}
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
+%config(noreplace) /%{catalina_base}/webapps/*
 
 %post
 echo $1
