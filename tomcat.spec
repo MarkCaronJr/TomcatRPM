@@ -137,4 +137,3 @@ fi
 %config(noreplace) /%{catalina_base}/webapps/*
 
 %post
-
