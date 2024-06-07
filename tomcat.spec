@@ -38,11 +38,13 @@ getent group %tomcat_group  || groupadd -r %tomcat_group
 getent passwd %tomcat_user  || \
 useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
     -c "tomcat service account" %tomcat_user
+    
 %prep
 %setup -q 
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+
 %build
 cat > tomcat%{major_version}.service <<EOF
 [Unit]
@@ -83,15 +85,21 @@ export CATALINA_OPTS="\$CATALINA_OPTS -Xmx1024m"
 # Add any other customizations or environment variables here
 EOF
 
+cat > index.html <<EOF
+You have successfully installed Apache Tomcat 9!
+EOF
+
 %install
 find . -name "*.bat" -exec rm {} \;
 mkdir -p %{buildroot}/%{_unitdir}
 mkdir -p %{buildroot}/%{catalina_home}
 mkdir -p %{buildroot}/%{catalina_base}/lib
 mkdir -p %{buildroot}/%{catalina_base}/webapps
+mkdir -p %{buildroot}/%{catalina_base}/webapps/ROOT
 mkdir -p %{buildroot}/%{catalina_base}/bin
 install -m 644 tomcat%{major_version}.service %{buildroot}%{_unitdir}
 install -m 750 setenv.sh %{buildroot}/%{catalina_base}/bin
+install -m 644 index.html %{buildroot}/%{catalina_base}/webapps/ROOT
 cp -r bin %{buildroot}/%{catalina_home}
 cp -r lib %{buildroot}/%{catalina_home}
 cp -r conf %{buildroot}/%{catalina_base}
@@ -101,9 +109,8 @@ cp -r work %{buildroot}/%{catalina_base}
 
 %files
 %attr(0644,root,root) %{_unitdir}/tomcat9.service
-%defattr(0640,tomcat,%tomcat_group,0750)
-/%{catalina_home}/*
-/%{catalina_base}/*
+%defattr(0640,tomcat,%tomcat_group,0750) /%{catalina_home}/* 
+%defattr(0640,tomcat,%tomcat_group,0750) /%{catalina_base}/*
 %attr(0755,root,root) /%{catalina_home}/bin/*
 %attr(0755,root,root) /%{catalina_base}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
