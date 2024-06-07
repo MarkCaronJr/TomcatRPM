@@ -111,11 +111,11 @@ cp -r work %{buildroot}/%{catalina_base}
 #If a fresh install, manager application will be installed
 #If an upgrade, manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
 #This gives users the ability to remove the manager applications if unneedded and them not be reinstalled during upgrades.  
-if [ "$1" == 1 ]; then
+if [ $1 == 1 ]; then
     # Fresh install
     cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
     cp -r webapps/host-manager %{buildroot}/%{catalina_base}/webapps/host-manager
-elif [ "$1" == 2 ]; then
+elif [ $1 == 2 ]; then
     # Upgrade
     if [ -d %{catalina_base}/webapps/manager ]; then
         cp -r webapps/manager %{buildroot}/%{catalina_base}/webapps/manager
