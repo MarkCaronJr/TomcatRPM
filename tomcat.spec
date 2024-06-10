@@ -132,6 +132,9 @@ cp -r webapps/host-manager %{buildroot}/manager-apps
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
 
+# Exclude manager-apps from final package
+%exclude /manager-apps/*
+
 %post
 # Conditions for installing the manager and host-manager applications
 # If a fresh install, the manager application will be installed
