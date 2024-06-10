@@ -5,7 +5,7 @@
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
@@ -132,8 +132,12 @@ cp -r webapps/host-manager %{buildroot}/manager-apps
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
 
-# Exclude manager-apps from final package
-%exclude /manager-apps/*
+# Include manager-apps in the package but exclude from final installation
+%dir /manager-apps
+/manager-apps/*
+
+%exclude /manager-apps/manager
+%exclude /manager-apps/host-manager
 
 %post
 # Conditions for installing the manager and host-manager applications
