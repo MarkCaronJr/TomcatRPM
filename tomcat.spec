@@ -5,7 +5,7 @@
 
 Name: apache-tomcat
 Version: %{full_version}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Summary: Apache Tomcat Server
 
 Group: web
