@@ -36,17 +36,8 @@ Conflicts: tomcat-9 < %{version}
 %pre
 getent group %tomcat_group  || groupadd -r %tomcat_group
 getent passwd %tomcat_user  || \
-useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
+useradd -M -r -p NP -g %tomcat_group -d %{catalina_base} \
     -c "tomcat service account" %tomcat_user
-
-# Check if manager apps exist
-if [ -d %{catalina_base}/webapps/manager ]; then
-    touch /tmp/manager_exists
-fi
-
-if [ -d %{catalina_base}/webapps/host-manager ]; then
-    touch /tmp/host_manager_exists
-fi
     
 %prep
 %setup -q 
@@ -116,13 +107,8 @@ mkdir -p %{buildroot}/%{catalina_base}/temp
 mkdir -p %{buildroot}/%{catalina_base}/logs
 cp -r work %{buildroot}/%{catalina_base}
 
-# Copy manager and host-manager applications to buildroot during install for potential use in %post
-mkdir -p %{buildroot}/manager-apps
-cp -r webapps/manager %{buildroot}/manager-apps
-cp -r webapps/host-manager %{buildroot}/manager-apps
-
 %files
-%attr(0644,root,root) %{_unitdir}/tomcat9.service
+%attr(0644,root,root) %{_unitdir}/tomcat%{major_version}.service
 %defattr(0640,tomcat,%tomcat_group,0750) 
 /%{catalina_home}/*
 /%{catalina_base}/*
@@ -132,33 +118,5 @@ cp -r webapps/host-manager %{buildroot}/manager-apps
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
 
-# Include manager-apps in the package but exclude from final installation
-%dir /manager-apps
-/manager-apps/*
-
-%exclude /manager-apps/manager
-%exclude /manager-apps/host-manager
-
 %post
-# Conditions for installing the manager and host-manager applications
-# If a fresh install, the manager application will be installed
-# If an upgrade, the manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
-# This gives users the ability to remove the manager applications if unneeded and them not be reinstalled during upgrades.
-
-if [ $1 -eq 1 ]; then
-    # Fresh install
-    cp -r %{buildroot}/manager-apps/manager %{catalina_base}/webapps/manager
-    cp -r %{buildroot}/manager-apps/host-manager %{catalina_base}/webapps/host-manager
-elif [ $1 -eq 2 ]; then
-    # Upgrade
-    if [ -f /tmp/manager_exists ]; then
-        cp -r %{buildroot}/manager-apps/manager %{catalina_base}/webapps/manager
-    fi
-    if [ -f /tmp/host_manager_exists ]; then
-        cp -r %{buildroot}/manager-apps/host-manager %{catalina_base}/webapps/host-manager
-    fi
-fi
-
-# Clean up
-rm -f /tmp/manager_exists
-rm -f /tmp/host_manager_exists
+echo "Note: The manager and host-manager applications will not be updated/installed with this package. Please install or update these applications separately if needed."
