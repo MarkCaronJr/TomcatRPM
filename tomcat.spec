@@ -38,6 +38,15 @@ getent group %tomcat_group  || groupadd -r %tomcat_group
 getent passwd %tomcat_user  || \
 useradd -M -r -p NP -g %tomcat_group -d /usr/local/tomcat/default \
     -c "tomcat service account" %tomcat_user
+
+# Check if manager apps exist
+if [ -d %{catalina_base}/webapps/manager ]; then
+    touch /tmp/manager_exists
+fi
+
+if [ -d %{catalina_base}/webapps/host-manager ]; then
+    touch /tmp/host_manager_exists
+fi
     
 %prep
 %setup -q 
@@ -124,21 +133,25 @@ cp -r webapps/host-manager %{buildroot}/manager-apps
 %config(noreplace) /%{catalina_base}/webapps/*
 
 %post
-#Conditions for installing the manager and host-manager applications
-#If a fresh install, manager application will be installed
-#If an upgrade, manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
-#This gives users the ability to remove the manager applications if unneedded and them not be reinstalled during upgrades.  
-echo $1
+# Conditions for installing the manager and host-manager applications
+# If a fresh install, the manager application will be installed
+# If an upgrade, the manager application will only be upgraded IF it currently exists within the Tomcat webapps directory. 
+# This gives users the ability to remove the manager applications if unneeded and them not be reinstalled during upgrades.
+
 if [ $1 -eq 1 ]; then
     # Fresh install
-    cp -r /manager-apps/manager %{catalina_base}/webapps/manager
-    cp -r /manager-apps/host-manager %{catalina_base}/webapps/host-manager
+    cp -r %{buildroot}/manager-apps/manager %{catalina_base}/webapps/manager
+    cp -r %{buildroot}/manager-apps/host-manager %{catalina_base}/webapps/host-manager
 elif [ $1 -eq 2 ]; then
     # Upgrade
-    if [ -d %{catalina_base}/webapps/manager ]; then
-        cp -r /manager-apps/manager %{catalina_base}/webapps/manager
+    if [ -f /tmp/manager_exists ]; then
+        cp -r %{buildroot}/manager-apps/manager %{catalina_base}/webapps/manager
     fi
-    if [ -d %{catalina_base}/webapps/host-manager ]; then
-        cp -r /manager-apps/host-manager %{catalina_base}/webapps/host-manager
+    if [ -f /tmp/host_manager_exists ]; then
+        cp -r %{buildroot}/manager-apps/host-manager %{catalina_base}/webapps/host-manager
     fi
 fi
+
+# Clean up
+rm -f /tmp/manager_exists
+rm -f /tmp/host_manager_exists
