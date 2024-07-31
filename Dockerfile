@@ -1,4 +1,4 @@
-FROM centos:7
+FROM redhat/ubi8:latest
 
 # Clean up and update yum, then install required packages
 RUN yum clean all && yum -y update -v && yum -y upgrade -v && \
