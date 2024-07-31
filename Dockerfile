@@ -1,7 +1,7 @@
 FROM oraclelinux:7.9
 
 RUN yum -y update && yum -y upgrade && \
-    yum -y install wget rpm-build rpmlint make diffutils patch make python3
+    yum -y install wget rpm-build  rpm-devel rpmlint make coreutils diffutils patch rpmdevtools make python
 
 RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
     mkdir -p /root/rpmbuild/SOURCES && \
