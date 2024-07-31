@@ -22,12 +22,12 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.git.createRef({
+            await github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${{steps.get_version.outputs.VERSION}}",
+              ref: `refs/tags/${{ steps.get_version.outputs.VERSION }}`,
               sha: context.sha
-            })
+            });
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
