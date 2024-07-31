@@ -1,16 +1,7 @@
 FROM ubuntu:latest
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y \
-    wget \
-    rpm \
-    rpm-build \
-    rpmlint \
-    make \
-    coreutils \
-    diffutils \
-    patch \
-    python3
+RUN apt-get update && apt-get install -y wget rpm rpm-build rpmlint make coreutils diffutils patch python3
 
 # Create the rpm build directories
 RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
