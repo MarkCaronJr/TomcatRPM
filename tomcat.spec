@@ -1,6 +1,6 @@
 %define major_version 9
 %define minor_version 0
-%define patch_version 89
+%define patch_version 91
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
@@ -77,7 +77,7 @@ cat > setenv.sh <<EOF
 # It is used to define environment variables for Tomcat instances
 
 # Example: Set the maximum heap size for the JVM
-export CATALINA_OPTS="\$CATALINA_OPTS -Xmx1024m"
+# export CATALINA_OPTS="\$CATALINA_OPTS -Xmx1024m"
 
 # Example: Set a custom Java home directory
 # export JAVA_HOME="/path/to/java/home"
