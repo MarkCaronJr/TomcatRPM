@@ -2,7 +2,7 @@ FROM redhat/ubi8:latest
 
 # Clean up and update yum, then install required packages
 RUN yum clean all && yum -y update -v && yum -y upgrade -v && \
-    yum -y install wget rpm-build rpmlint make coreutils diffutils patch python3 -v
+    yum -y install wget rpm-build rpmlint make diffutils patch python3 -v
 
 # Create the rpm build directories
 RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
