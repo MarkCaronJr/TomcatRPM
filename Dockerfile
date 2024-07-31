@@ -1,21 +1,17 @@
-FROM ubuntu:latest
+FROM centos:7
 
-# Install necessary packages
-RUN apt-get update && apt-get install -y wget rpm rpm-build rpmlint make coreutils diffutils patch python3
+RUN yum -y update && yum -y upgrade && \
+    yum -y install wget rpm-build  rpm-devel rpmlint make coreutils diffutils patch rpmdevtools make python
 
-# Create the rpm build directories
 RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
     mkdir -p /root/rpmbuild/SOURCES && \
     mkdir -p /root/rpmbuild/SPECS && \
     mkdir -p /root/rpmbuild/SRPMS
 
-# Copy source files and spec file
+
 COPY *.tar.gz /root/rpmbuild/SOURCES/
 COPY *.patch /root/rpmbuild/SOURCES/
 ADD tomcat.spec /root/rpmbuild/SPECS/
-
-# Set working directory
+VOLUME /root/rpmbuild/RPMS/noarch
 WORKDIR /root/rpmbuild/RPMS/noarch
-
-# Command to build RPM
-CMD ["rpmbuild", "--target", "noarch", "-v", "-bb", "tomcat.spec"]
+CMD ["rpmbuild","--target","noarch","-v","-bb","tomcat.spec"]
