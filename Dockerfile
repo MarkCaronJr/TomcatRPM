@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:8
 
 RUN yum -y update && yum -y upgrade && \
     yum -y install wget rpm-build  rpm-devel rpmlint make coreutils diffutils patch rpmdevtools make python
