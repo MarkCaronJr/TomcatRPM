@@ -1,4 +1,4 @@
-FROM redhat/ubi8:latest
+FROM oraclelinux:7.9
 
 RUN yum -y update && yum -y upgrade && \
     yum -y install wget rpm-build rpmlint make diffutils patch make python3
