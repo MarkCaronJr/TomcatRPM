@@ -95,7 +95,7 @@ cp -r work %{buildroot}/%{catalina_base}
 %defattr(0640,tomcat,%tomcat_group,0750) 
 /%{catalina_home}/*
 /%{catalina_base}/*
-%attr(0755,root,root) /%{catalina_base}/bin/*
+%attr(0755,root,root) /%{catalina_home}/bin/*
 %attr(0755,root,root) /%{catalina_home}/lib/*
 %config(noreplace) /%{catalina_base}/conf/*
 %config(noreplace) /%{catalina_base}/webapps/*
