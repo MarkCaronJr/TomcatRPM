@@ -103,8 +103,6 @@ cp -r work %{buildroot}/%{catalina_base}
 %config(noreplace) /%{catalina_base}/webapps/*
 
 %post
-
-%post
 # Run systemctl daemon-reload to recognize new or updated service files
 if [ -x /bin/systemctl ]; then
     systemctl daemon-reload
