@@ -1,4 +1,4 @@
-FROM redhat/ubi7:latest
+FROM redhat/ubi8:latest
 
 RUN yum -y update && yum -y upgrade && \
     yum -y install wget rpm-build  rpm-devel rpmlint make coreutils diffutils patch rpmdevtools make python
@@ -7,7 +7,6 @@ RUN mkdir -p /root/rpmbuild/RPMS/noarch && \
     mkdir -p /root/rpmbuild/SOURCES && \
     mkdir -p /root/rpmbuild/SPECS && \
     mkdir -p /root/rpmbuild/SRPMS
-
 
 COPY *.tar.gz /root/rpmbuild/SOURCES/
 COPY *.patch /root/rpmbuild/SOURCES/
