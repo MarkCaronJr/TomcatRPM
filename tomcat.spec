@@ -70,21 +70,6 @@ Environment="CATALINA_BASE=/usr/local/tomcat/default"
 WantedBy=multi-user.target
 EOF
 
-cat > setenv.sh <<EOF
-#!/bin/sh
-
-# This is a sample setenv.sh file for Apache Tomcat
-# It is used to define environment variables for Tomcat instances
-
-# Example: Set the maximum heap size for the JVM
-# export CATALINA_OPTS="\$CATALINA_OPTS -Xmx1024m"
-
-# Example: Set a custom Java home directory
-# export JAVA_HOME="/path/to/java/home"
-
-# Add any other customizations or environment variables here
-EOF
-
 cat > index.html <<EOF
 You have successfully installed Apache Tomcat 9!
 EOF
@@ -98,7 +83,6 @@ mkdir -p %{buildroot}/%{catalina_base}/webapps
 mkdir -p %{buildroot}/%{catalina_base}/webapps/ROOT
 mkdir -p %{buildroot}/%{catalina_base}/bin
 install -m 644 tomcat%{major_version}.service %{buildroot}%{_unitdir}
-install -m 750 setenv.sh %{buildroot}/%{catalina_base}/bin
 install -m 644 index.html %{buildroot}/%{catalina_base}/webapps/ROOT
 cp -r bin %{buildroot}/%{catalina_home}
 cp -r lib %{buildroot}/%{catalina_home}
@@ -119,4 +103,11 @@ cp -r work %{buildroot}/%{catalina_base}
 %config(noreplace) /%{catalina_base}/webapps/*
 
 %post
+
+%post
+# Run systemctl daemon-reload to recognize new or updated service files
+if [ -x /bin/systemctl ]; then
+    systemctl daemon-reload
+fi
+
 echo "Note: The manager and host-manager applications will not be updated/installed with this package. Please install or update these applications separately if needed."
