@@ -1,6 +1,6 @@
 %define major_version 9
 %define minor_version 0
-%define patch_version 91
+%define patch_version 98
 %define full_version %{major_version}.%{minor_version}.%{patch_version}
 
 Name: apache-tomcat
