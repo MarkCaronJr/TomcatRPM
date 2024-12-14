@@ -11,8 +11,6 @@ Summary: Apache Tomcat Server
 Group: web
 License: Apache 2.0
 Source0: apache-tomcat-%{full_version}.tar.gz
-Patch0: serverxml-stig.patch
-Patch1: webxml-stig.patch
 
 BuildRequires: systemd
 BuildArch: noarch
@@ -40,8 +38,6 @@ useradd -M -r -p NP -g %tomcat_group -d %{catalina_base} \
     
 %prep
 %setup -q 
-%patch0 -p1
-%patch1 -p1
 
 %build
 cat > tomcat%{major_version}.service <<EOF
